@@ -25,10 +25,6 @@ dist-ssr
 .gradle
 build
 android.keystore
-app
-gradle*
-gradlew*
-build.gradle
 app-release*
 manifest-checksum.txt
 local.properties

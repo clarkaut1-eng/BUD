@@ -75,10 +75,10 @@ const Layout = ({ children }: LayoutProps) => {
   }
 
   return (
-    <div className="min-h-screen bg-background dark:bg-gray-900 transition-colors duration-300">
+    <div className="min-h-screen bg-background dark:bg-gray-900 transition-colors duration-300 ios-safe-area">
       {/* Header */}
-      <header className="bg-card dark:bg-gray-800 text-primary-foreground dark:text-white border-b border-border dark:border-gray-700 sticky top-0 z-10 shadow-sm transition-colors duration-300">
-        <div className="container mx-auto px-4">
+      <header className="bg-card dark:bg-gray-800 text-primary-foreground dark:text-white border-b border-border dark:border-gray-700 sticky top-0 z-10 shadow-sm transition-colors duration-300 ios-header-safe-area">
+        <div className="container mx-auto px-4 ios-px-safe-area">
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center">
               <Button 
@@ -120,15 +120,16 @@ const Layout = ({ children }: LayoutProps) => {
         </div>
       </header>
 
-      {/* Sidebar */}
+      {/* Sidebar Overlay */}
       <div 
         className={cn(
-          "fixed inset-0 z-20 bg-black/50 backdrop-blur-sm transition-opacity",
+          "fixed inset-0 z-20 bg-black/50 backdrop-blur-sm transition-opacity sidebar-overlay",
           sidebarOpen ? "opacity-100" : "opacity-0 pointer-events-none"
         )}
         onClick={() => setSidebarOpen(false)}
       />
       
+      {/* Sidebar */}
       <div 
         className={cn(
           "fixed left-0 top-0 z-30 h-full w-64 bg-card dark:bg-gray-800 shadow-xl transform transition-transform overflow-y-auto animate-slide-in sidebar-container",
@@ -333,12 +334,12 @@ const Layout = ({ children }: LayoutProps) => {
       </div>
 
       {/* Main Content */}
-      <main className="pb-20 animate-fade-in">
+      <main className="pb-20 animate-fade-in ios-main-safe-area">
         {children}
       </main>
 
-      {/* Bottom Navigation */}
-      <nav className="fixed bottom-0 left-0 right-0 bg-card dark:bg-gray-800 shadow-[0_-2px_10px_rgba(0,0,0,0.1)] flex justify-around py-2 z-10 transition-colors duration-300">
+      {/* Bottom Navigation with iOS Safe Area */}
+      <nav className="fixed bottom-0 left-0 right-0 bg-card dark:bg-gray-800 shadow-[0_-2px_10px_rgba(0,0,0,0.1)] flex justify-around py-2 z-10 transition-colors duration-300 ios-bottom-safe-area">
         <Link 
           to="/" 
           className={cn(

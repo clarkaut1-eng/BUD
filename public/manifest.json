@@ -4,6 +4,7 @@
   "description": "Die kostenlose App zur Übersicht Ihrer Finanzen",
   "start_url": "/",
   "display": "standalone",
+  "display_override": ["window-controls-overlay", "standalone"],
   "background_color": "#FFFFFF",
   "theme_color": "#1E90FF",
   "orientation": "portrait-primary",

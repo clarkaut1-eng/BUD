@@ -82,25 +82,119 @@
     @apply border-border font-roboto;
   }
 
+  html {
+    /* Prevent horizontal scroll on mobile */
+    overflow-x: hidden;
+    /* Smooth scrolling for better UX */
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+  }
+
   body {
     @apply bg-background text-foreground;
+    /* Use dynamic viewport height for better mobile support */
+    min-height: 100vh;
+    min-height: 100dvh;
+    /* Prevent pull-to-refresh on iOS while maintaining swipe navigation */
+    overscroll-behavior-y: none;
+    /* Safe area for text content */
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
   }
 
   /* iOS Safe Area Support for iPhone X and later devices */
   @supports (padding: max(0px)) {
-    .min-h-screen {
-      min-height: max(100vh, 100dvh);
-    }
-
-    /* Header starts at top edge with content in safe area */
-    header {
+    /* Global body safe area */
+    body {
       padding-top: env(safe-area-inset-top);
+      padding-bottom: env(safe-area-inset-bottom);
     }
 
-    /* Sidebar starts at top edge */
+    /* Main container with safe area */
+    .min-h-screen {
+      min-height: 100vh;
+      min-height: 100dvh;
+    }
+
+    /* Header with safe area for notch */
+    header {
+      padding-top: max(env(safe-area-inset-top), 0px);
+      padding-left: env(safe-area-inset-left);
+      padding-right: env(safe-area-inset-right);
+      /* Ensure header doesn't get hidden behind notch */
+      position: relative;
+      z-index: 50;
+    }
+
+    /* Main content area with safe area */
+    main {
+      padding-left: env(safe-area-inset-left);
+      padding-right: env(safe-area-inset-right);
+      padding-bottom: env(safe-area-inset-bottom);
+    }
+
+    /* Bottom navigation with safe area for home indicator */
+    nav.fixed.bottom-0 {
+      padding-bottom: max(env(safe-area-inset-bottom), 8px);
+      padding-left: env(safe-area-inset-left);
+      padding-right: env(safe-area-inset-right);
+      /* Ensure navigation is above home indicator */
+      position: fixed;
+      z-index: 50;
+      /* Add safety margin for very small safe areas */
+      min-height: calc(60px + env(safe-area-inset-bottom, 0px));
+    }
+
+    /* Sidebar with full safe area coverage */
     .sidebar-container {
-      top: 0;
-      height: 100%;
+      padding-top: env(safe-area-inset-top);
+      padding-bottom: env(safe-area-inset-bottom);
+      padding-left: env(safe-area-inset-left);
+      /* Ensure sidebar starts below any status bar */
+      position: fixed;
+      z-index: 40;
+    }
+
+    /* Overlay for sidebar */
+    .sidebar-overlay {
+      padding-left: env(safe-area-inset-left);
+      padding-right: env(safe-area-inset-right);
+    }
+
+    /* Modal/Dialog content with safe area */
+    .dialog-content,
+    .sheet-content {
+      padding-left: env(safe-area-inset-left);
+      padding-right: env(safe-area-inset-right);
+      padding-bottom: env(safe-area-inset-bottom);
+    }
+  }
+
+  /* Landscape orientation safe area adjustments */
+  @media (orientation: landscape) and (max-height: 500px) {
+    @supports (padding: max(0px)) {
+      body {
+        padding-left: env(safe-area-inset-left);
+        padding-right: env(safe-area-inset-right);
+      }
+
+      header {
+        padding-top: max(env(safe-area-inset-top), 4px);
+        padding-left: env(safe-area-inset-left);
+        padding-right: env(safe-area-inset-right);
+      }
+
+      main {
+        padding-left: env(safe-area-inset-left);
+        padding-right: env(safe-area-inset-right);
+      }
+
+      nav.fixed.bottom-0 {
+        padding-bottom: max(env(safe-area-inset-bottom), 4px);
+        padding-left: env(safe-area-inset-left);
+        padding-right: env(safe-area-inset-right);
+        min-height: calc(50px + env(safe-area-inset-bottom, 0px));
+      }
     }
   }
 }
@@ -149,6 +243,40 @@
   
   .add-expense-button {
     @apply bg-budget-red text-white rounded-full w-12 h-12 flex items-center justify-center hover:opacity-90 transition-opacity shadow-md;
+  }
+
+  /* iOS Safe Area Utility Classes */
+  .ios-safe-area {
+    /* Main container with safe area support */
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+  }
+
+  .ios-header-safe-area {
+    /* Header with safe area for notch */
+    padding-top: max(env(safe-area-inset-top), 0px);
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+  }
+
+  .ios-main-safe-area {
+    /* Main content area with safe area */
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  .ios-bottom-safe-area {
+    /* Bottom navigation with safe area for home indicator */
+    padding-bottom: max(env(safe-area-inset-bottom), 8px);
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+  }
+
+  .ios-px-safe-area {
+    /* Horizontal safe area padding */
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
   }
 }
 
