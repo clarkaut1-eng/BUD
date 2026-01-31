@@ -75,9 +75,9 @@ const Layout = ({ children }: LayoutProps) => {
   }
 
   return (
-    <div className="min-h-screen bg-background dark:bg-gray-900 transition-colors duration-300 safe-area-vertical">
+    <div className="min-h-screen bg-background dark:bg-gray-900 transition-colors duration-300">
       {/* Header */}
-      <header className="bg-card dark:bg-gray-800 text-primary-foreground dark:text-white border-b border-border dark:border-gray-700 sticky top-0 z-10 shadow-sm transition-colors duration-300 safe-area-top">
+      <header className="bg-card dark:bg-gray-800 text-primary-foreground dark:text-white border-b border-border dark:border-gray-700 sticky top-0 z-10 shadow-sm transition-colors duration-300 pt-safe-top">
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center">
@@ -136,7 +136,7 @@ const Layout = ({ children }: LayoutProps) => {
         )}
       >
         {/* Sidebar Header */}
-        <div className="p-4 flex items-center justify-between border-b border-border dark:border-gray-700 bg-background dark:bg-gray-900">
+        <div className="p-4 flex items-center justify-between border-b border-border dark:border-gray-700 bg-background dark:bg-gray-900 pt-safe-top">
           <Logo showText={true} size="small" />
           <Button 
             variant="ghost" 
@@ -333,12 +333,12 @@ const Layout = ({ children }: LayoutProps) => {
       </div>
 
       {/* Main Content */}
-      <main className="pb-20 animate-fade-in safe-area-bottom">
+      <main className="pb-24 animate-fade-in">
         {children}
       </main>
 
       {/* Bottom Navigation */}
-      <nav className="fixed bottom-0 left-0 right-0 bg-card dark:bg-gray-800 shadow-[0_-2px_10px_rgba(0,0,0,0.1)] flex justify-around py-2 z-10 transition-colors duration-300 safe-area-bottom">
+      <nav className="fixed bottom-0 left-0 right-0 bg-card dark:bg-gray-800 shadow-[0_-2px_10px_rgba(0,0,0,0.1)] flex justify-around py-2 z-10 transition-colors duration-300 pb-safe-bottom">
         <Link 
           to="/" 
           className={cn(

@@ -92,48 +92,50 @@
       min-height: max(100vh, 100dvh);
     }
 
-    .safe-area-top {
+    /* Safe area padding classes - only apply when needed */
+    .pt-safe-top {
       padding-top: max(env(safe-area-inset-top), 0px);
     }
 
-    .safe-area-bottom {
+    .pb-safe-bottom {
       padding-bottom: max(env(safe-area-inset-bottom), 0px);
     }
 
-    .safe-area-left {
+    .pl-safe-left {
       padding-left: max(env(safe-area-inset-left), 0px);
     }
 
-    .safe-area-right {
+    .pr-safe-right {
       padding-right: max(env(safe-area-inset-right), 0px);
     }
 
-    .safe-area-horizontal {
+    .px-safe-horizontal {
       padding-left: max(env(safe-area-inset-left), 0px);
       padding-right: max(env(safe-area-inset-right), 0px);
     }
 
-    .safe-area-vertical {
+    .py-safe-vertical {
       padding-top: max(env(safe-area-inset-top), 0px);
       padding-bottom: max(env(safe-area-inset-bottom), 0px);
     }
 
-    .safe-area-all {
+    .p-safe-all {
       padding-top: max(env(safe-area-inset-top), 0px);
       padding-bottom: max(env(safe-area-inset-bottom), 0px);
       padding-left: max(env(safe-area-inset-left), 0px);
       padding-right: max(env(safe-area-inset-right), 0px);
     }
-  }
 
-  /* Ensure header doesn't overlap with notch */
-  header {
-    padding-top: env(safe-area-inset-top);
-  }
+    /* Header should use min-height for safe area, not padding */
+    header {
+      min-height: calc(64px + env(safe-area-inset-top, 0px));
+    }
 
-  /* Ensure bottom navigation doesn't overlap with home indicator */
-  nav {
-    padding-bottom: env(safe-area-inset-bottom);
+    /* Bottom navigation needs padding for home indicator */
+    nav.fixed.bottom-0 {
+      padding-bottom: max(env(safe-area-inset-bottom), 0px);
+      padding-bottom: env(safe-area-inset-bottom);
+    }
   }
 }
 
