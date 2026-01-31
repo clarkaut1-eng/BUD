@@ -17,6 +17,10 @@ workflows:
         script: npm run build
       - name: Sync Capacitor
         script: ./node_modules/.bin/cap sync ios
+      - name: Install iOS pods
+        script: |
+          cd ios/App
+          pod install
       - name: Build iOS
         script: |
           cd ios/App
