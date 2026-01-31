@@ -92,49 +92,9 @@
       min-height: max(100vh, 100dvh);
     }
 
-    /* Safe area padding classes - only apply when needed */
+    /* Safe area padding for sidebar content */
     .pt-safe-top {
       padding-top: max(env(safe-area-inset-top), 0px);
-    }
-
-    .pb-safe-bottom {
-      padding-bottom: max(env(safe-area-inset-bottom), 0px);
-    }
-
-    .pl-safe-left {
-      padding-left: max(env(safe-area-inset-left), 0px);
-    }
-
-    .pr-safe-right {
-      padding-right: max(env(safe-area-inset-right), 0px);
-    }
-
-    .px-safe-horizontal {
-      padding-left: max(env(safe-area-inset-left), 0px);
-      padding-right: max(env(safe-area-inset-right), 0px);
-    }
-
-    .py-safe-vertical {
-      padding-top: max(env(safe-area-inset-top), 0px);
-      padding-bottom: max(env(safe-area-inset-bottom), 0px);
-    }
-
-    .p-safe-all {
-      padding-top: max(env(safe-area-inset-top), 0px);
-      padding-bottom: max(env(safe-area-inset-bottom), 0px);
-      padding-left: max(env(safe-area-inset-left), 0px);
-      padding-right: max(env(safe-area-inset-right), 0px);
-    }
-
-    /* Header should use min-height for safe area, not padding */
-    header {
-      min-height: calc(64px + env(safe-area-inset-top, 0px));
-    }
-
-    /* Bottom navigation needs padding for home indicator */
-    nav.fixed.bottom-0 {
-      padding-bottom: max(env(safe-area-inset-bottom), 0px);
-      padding-bottom: env(safe-area-inset-bottom);
     }
   }
 }
