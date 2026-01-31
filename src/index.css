@@ -92,9 +92,15 @@
       min-height: max(100vh, 100dvh);
     }
 
-    /* Safe area padding for sidebar content */
-    .pt-safe-top {
-      padding-top: max(env(safe-area-inset-top), 0px);
+    /* Header starts at top edge with content in safe area */
+    header {
+      padding-top: env(safe-area-inset-top);
+    }
+
+    /* Sidebar starts at top edge */
+    .sidebar-container {
+      top: 0;
+      height: 100%;
     }
   }
 }

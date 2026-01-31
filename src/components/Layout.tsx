@@ -131,12 +131,12 @@ const Layout = ({ children }: LayoutProps) => {
       
       <div 
         className={cn(
-          "fixed left-0 top-0 z-30 h-full w-64 bg-card dark:bg-gray-800 shadow-xl transform transition-transform overflow-y-auto animate-slide-in",
+          "fixed left-0 top-0 z-30 h-full w-64 bg-card dark:bg-gray-800 shadow-xl transform transition-transform overflow-y-auto animate-slide-in sidebar-container",
           sidebarOpen ? "translate-x-0" : "-translate-x-full"
         )}
       >
         {/* Sidebar Header */}
-        <div className="p-4 flex items-center justify-between border-b border-border dark:border-gray-700 bg-background dark:bg-gray-900 pt-safe-top">
+        <div className="flex items-center justify-between border-b border-border dark:border-gray-700 bg-background dark:bg-gray-900">
           <Logo showText={true} size="small" />
           <Button 
             variant="ghost" 
