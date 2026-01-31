@@ -104,7 +104,7 @@
 
   /* iOS Safe Area Support for iPhone X and later devices */
   @supports (padding: max(0px)) {
-    /* Global body safe area */
+    /* Global body safe area - only when safe area exists */
     body {
       padding-top: env(safe-area-inset-top);
       padding-bottom: env(safe-area-inset-bottom);
@@ -116,9 +116,9 @@
       min-height: 100dvh;
     }
 
-    /* Header with safe area for notch - ensure content starts below notch */
+    /* Header with safe area for notch - use actual safe area inset */
     header {
-      padding-top: max(env(safe-area-inset-top), 20px);
+      padding-top: env(safe-area-inset-top);
       padding-left: env(safe-area-inset-left);
       padding-right: env(safe-area-inset-right);
       /* Ensure header doesn't get hidden behind notch */
@@ -126,18 +126,18 @@
       z-index: 50;
     }
 
-    /* Main content area with safe area - start below header */
+    /* Main content area with safe area - start below header with proper spacing */
     main {
       padding-left: env(safe-area-inset-left);
       padding-right: env(safe-area-inset-right);
       padding-bottom: env(safe-area-inset-bottom);
-      /* Add top padding to clear header and notch area */
+      /* Add top padding equal to header height plus safe area */
       padding-top: calc(64px + env(safe-area-inset-top, 0px));
     }
 
     /* Bottom navigation with safe area for home indicator */
     nav.fixed.bottom-0 {
-      padding-bottom: max(env(safe-area-inset-bottom), 20px);
+      padding-bottom: env(safe-area-inset-bottom);
       padding-left: env(safe-area-inset-left);
       padding-right: env(safe-area-inset-right);
       /* Ensure navigation is above home indicator */
@@ -255,8 +255,8 @@
   }
 
   .ios-header-safe-area {
-    /* Header with safe area for notch - ensure content starts below notch */
-    padding-top: max(env(safe-area-inset-top), 20px);
+    /* Header with safe area for notch - use actual safe area inset */
+    padding-top: env(safe-area-inset-top);
     padding-left: env(safe-area-inset-left);
     padding-right: env(safe-area-inset-right);
   }
@@ -266,13 +266,13 @@
     padding-left: env(safe-area-inset-left);
     padding-right: env(safe-area-inset-right);
     padding-bottom: env(safe-area-inset-bottom);
-    /* Add top padding to clear header and notch area */
+    /* Add top padding equal to header height plus safe area */
     padding-top: calc(64px + env(safe-area-inset-top, 0px));
   }
 
   .ios-bottom-safe-area {
     /* Bottom navigation with safe area for home indicator */
-    padding-bottom: max(env(safe-area-inset-bottom), 20px);
+    padding-bottom: env(safe-area-inset-bottom);
     padding-left: env(safe-area-inset-left);
     padding-right: env(safe-area-inset-right);
   }
