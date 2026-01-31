@@ -1,0 +1,109 @@
+# GitLab CI/CD Pipeline for PWA Deployment
+
+stages:
+  - build
+  - deploy
+
+variables:
+  ANDROID_COMPILE_SDK: "34"
+  ANDROID_BUILD_TOOLS: "34.0.0"
+  ANDROID_SDK_TOOLS: "11076708"
+
+cache:
+  key: ${CI_COMMIT_REF_SLUG}
+  paths:
+    - .npm/
+    - android-sdk/
+
+# Android Build Job
+android_build:
+  stage: build
+  image: openjdk:17-jdk
+  before_script:
+    - apt-get update -qq && apt-get install -y -qq curl unzip
+    - |
+      if [ ! -d "android-sdk" ]; then
+        curl -s https://dl.google.com/android/repository/commandlinetools-linux-${ANDROID_SDK_TOOLS}_latest.zip -o android-sdk.zip
+        unzip -q android-sdk.zip -d android-sdk
+      fi
+    - export ANDROID_HOME=$PWD/android-sdk
+    - export PATH=$PATH:$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools
+    - yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses
+    - $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager "platform-tools" "platforms;android-${ANDROID_COMPILE_SDK}" "build-tools;${ANDROID_BUILD_TOOLS}"
+    - npm install -g @bubblewrap/cli
+  script:
+    - bubblewrap build
+  artifacts:
+    paths:
+      - app-release-signed.apk
+      - app-release-bundle.aab
+    expire_in: 30 days
+    reports:
+      junit: "**/test-results.xml"  # If tests are added
+  only:
+    - main
+    - tags
+  except:
+    - schedules
+
+# Android Deploy Job
+android_deploy:
+  stage: deploy
+  image: ruby:3.1
+  dependencies:
+    - android_build
+  before_script:
+    - gem install fastlane
+    - echo "$ANDROID_KEYSTORE_BASE64" | base64 -d > android.keystore
+  script:
+    - fastlane android deploy
+  environment:
+    name: production
+    url: https://play.google.com/store/apps/details?id=app.vercel.my_budget_amber.twa
+  only:
+    - tags
+  when: manual
+
+# iOS Build Job
+ios_build:
+  stage: build
+  tags:
+    - macos
+  before_script:
+    - brew install node
+    # Note: iOS project must be generated using PWABuilder and committed to ios/ directory
+    # PWABuilder does not have CLI, so manual generation required
+  script:
+    - cd ios
+    - xcodebuild -workspace MyBudget.xcworkspace -scheme MyBudget -sdk iphoneos -configuration Release archive -archivePath $CI_PROJECT_DIR/build.xcarchive
+    - xcodebuild -exportArchive -archivePath $CI_PROJECT_DIR/build.xcarchive -exportOptionsPlist exportOptions.plist -exportPath $CI_PROJECT_DIR/build
+  artifacts:
+    paths:
+      - build/MyBudget.ipa
+    expire_in: 30 days
+  only:
+    - main
+    - tags
+  except:
+    - schedules
+
+# iOS Deploy Job
+ios_deploy:
+  stage: deploy
+  tags:
+    - macos
+  image: ruby:3.1
+  dependencies:
+    - ios_build
+  before_script:
+    - gem install fastlane
+    - echo "$APPLE_CERTIFICATE_BASE64" | base64 -d > certificate.p12
+    - echo "$APPLE_PROVISIONING_PROFILE_BASE64" | base64 -d > profile.mobileprovision
+  script:
+    - fastlane ios deploy
+  environment:
+    name: production
+    url: https://apps.apple.com/app/my-budget/idYOUR_APP_ID
+  only:
+    - tags
+  when: manual

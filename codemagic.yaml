@@ -1,0 +1,29 @@
+workflows:
+  ios-workflow:
+    name: iOS Build
+    triggering:
+      events:
+        - push
+      branch_patterns:
+        - pattern: "main"
+          include: true
+    environment:
+      xcode: latest
+      cocoapods: default
+    scripts:
+      - name: Install dependencies
+        script: npm install
+      - name: Build web assets
+        script: npm run build
+      - name: Sync Capacitor
+        script: ./node_modules/.bin/cap sync ios
+      - name: Build iOS
+        script: |
+          cd ios/App
+          xcodebuild -workspace App.xcworkspace -scheme App -sdk iphonesimulator -configuration Release -allowProvisioningUpdates IPHONEOS_DEPLOYMENT_TARGET=15.1 CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO archive -archivePath $CM_BUILD_DIR/build.xcarchive
+          
+          # Extract app from archive and create zipped .app bundle for Appetize.io
+          cd $CM_BUILD_DIR/build.xcarchive/Products/Applications
+          zip -r $CM_BUILD_DIR/App.app.zip App.app
+    artifacts:
+      - $CM_BUILD_DIR/App.app.zip

@@ -1,0 +1,13 @@
+name: Codemagic Trigger Check
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  check-trigger:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Confirm Webhook Trigger
+        run: echo "Build should be triggered via GitHub webhook to Codemagic"

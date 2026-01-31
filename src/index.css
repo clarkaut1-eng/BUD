@@ -1,0 +1,213 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+
+    --primary: 210 100% 56%;
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 222.2 84% 4.9%;
+
+    --radius: 0.5rem;
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border font-roboto;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+
+  /* iOS Safe Area Support for iPhone X and later devices */
+  @supports (padding: max(0px)) {
+    .min-h-screen {
+      min-height: max(100vh, 100dvh);
+    }
+
+    .safe-area-top {
+      padding-top: max(env(safe-area-inset-top), 0px);
+    }
+
+    .safe-area-bottom {
+      padding-bottom: max(env(safe-area-inset-bottom), 0px);
+    }
+
+    .safe-area-left {
+      padding-left: max(env(safe-area-inset-left), 0px);
+    }
+
+    .safe-area-right {
+      padding-right: max(env(safe-area-inset-right), 0px);
+    }
+
+    .safe-area-horizontal {
+      padding-left: max(env(safe-area-inset-left), 0px);
+      padding-right: max(env(safe-area-inset-right), 0px);
+    }
+
+    .safe-area-vertical {
+      padding-top: max(env(safe-area-inset-top), 0px);
+      padding-bottom: max(env(safe-area-inset-bottom), 0px);
+    }
+
+    .safe-area-all {
+      padding-top: max(env(safe-area-inset-top), 0px);
+      padding-bottom: max(env(safe-area-inset-bottom), 0px);
+      padding-left: max(env(safe-area-inset-left), 0px);
+      padding-right: max(env(safe-area-inset-right), 0px);
+    }
+  }
+
+  /* Ensure header doesn't overlap with notch */
+  header {
+    padding-top: env(safe-area-inset-top);
+  }
+
+  /* Ensure bottom navigation doesn't overlap with home indicator */
+  nav {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+}
+
+/* Custom classes */
+@layer components {
+  .income-text {
+    @apply text-budget-green font-medium;
+  }
+  
+  .expense-text {
+    @apply text-budget-red font-medium;
+  }
+  
+  .balance-text {
+    @apply font-medium;
+  }
+  
+  .positive-balance {
+    @apply text-budget-green;
+  }
+  
+  .negative-balance {
+    @apply text-budget-red;
+  }
+  
+  .neutral-indicator {
+    @apply text-budget-yellow;
+  }
+  
+  .card-content {
+    @apply bg-card text-card-foreground rounded-lg shadow-md p-4;
+  }
+  
+  .primary-button {
+    @apply bg-primary text-primary-foreground rounded-lg py-2 px-4 hover:opacity-90 transition-opacity;
+  }
+  
+  .secondary-button {
+    @apply border border-border text-foreground rounded-lg py-2 px-4 hover:bg-accent transition-colors;
+  }
+  
+  .add-income-button {
+    @apply bg-budget-green text-white rounded-full w-12 h-12 flex items-center justify-center hover:opacity-90 transition-opacity shadow-md;
+  }
+  
+  .add-expense-button {
+    @apply bg-budget-red text-white rounded-full w-12 h-12 flex items-center justify-center hover:opacity-90 transition-opacity shadow-md;
+  }
+}
+
+/* Utility: force all white/gray backgrounds and borders to use theme variables for dark mode */
+.bg-white, .bg-gray-100, .bg-gray-50, .bg-gray-200, .bg-gray-300, .bg-gray-400, .bg-gray-500, .bg-gray-600, .bg-gray-700, .bg-gray-800, .bg-gray-900 {
+  background-color: var(--card) !important;
+}
+.text-white, .text-gray-100, .text-gray-200, .text-gray-300, .text-gray-400, .text-gray-500, .text-gray-600, .text-gray-700, .text-gray-800, .text-gray-900 {
+  color: var(--card-foreground) !important;
+}
+.border-white, .border-gray-100, .border-gray-200, .border-gray-300, .border-gray-400, .border-gray-500, .border-gray-600, .border-gray-700, .border-gray-800, .border-gray-900 {
+  border-color: var(--border) !important;
+}
+
+/* Fix calendar/date input text color in dark mode */
+.dark input[type="date"],
+.dark input[type="datetime-local"],
+.dark input[type="time"] {
+  color-scheme: dark;
+  background-color: #1a1a1a;
+  color: #fff;
+  border-color: #333;
+}
+
+/* Fix select and option text color in dark mode */
+.dark select,
+.dark option {
+  background-color: #1a1a1a;
+  color: #fff;
+}

@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "app.vercel.my_budget_amber.twa",
+      "sha256_cert_fingerprints": [
+        "B3:68:2A:30:29:12:BF:2C:FD:CB:4D:D1:0B:07:FC:D0:85:12:FD:F1:BE:28:8C:D4:EA:1A:7A:48:12:20:8C:ED"
+      ]
+    }
+  }
+]
