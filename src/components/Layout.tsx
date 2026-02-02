@@ -75,10 +75,10 @@ const Layout = ({ children }: LayoutProps) => {
   }
 
   return (
-    <div className="min-h-screen bg-background dark:bg-gray-900 transition-colors duration-300 ios-safe-area">
+    <div className="min-h-screen bg-background dark:bg-gray-900 transition-colors duration-300">
       {/* Header */}
       <header className="bg-card dark:bg-gray-800 text-primary-foreground dark:text-white border-b border-border dark:border-gray-700 sticky top-0 z-10 shadow-sm transition-colors duration-300 ios-header-safe-area">
-        <div className="container mx-auto px-4 ios-px-safe-area">
+        <div className="container mx-auto px-4">
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center">
               <Button 
